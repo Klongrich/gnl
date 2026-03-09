@@ -12,25 +12,25 @@
 
 #include "get_next_line.h"
 
-char	*get_next_line(int fd)
+char	*get_next_line(int filedescriptor)
 {
-	static char	*full_str;
-	char		*line;
+	static char	*all_file_characters;
+	char		*line_from_parsing_at_newline;
 
-	if (fd < 0 || BUFFER_SIZE <= 0)
+	if (filedescriptor < 0 || BUFFER_SIZE <= 0)
 		return (0);
-	full_str = read_function(fd, full_str);
-	if (!full_str)
+	all_file_characters = read_from_passed_file(filedescriptor, all_file_characters);
+	if (!all_file_characters)
 		return (NULL);
-	line = ft_getline(full_str);
-	full_str = ft_getrest(full_str);
-	return (line);
+	line_from_parsing_at_newline = ft_getline(all_file_characters);
+	all_file_characters = ft_getrest(all_file_characters);
+	return (line_from_parsing_at_newline);
 }
 
 /**
  * read the first line of a file descriptor
  */
-char	*read_function(int fd, char *str)
+char	*read_from_passed_file(int fd, char *str)
 {
 	char	*tmp;
 	int		bytes;
