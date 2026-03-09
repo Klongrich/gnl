@@ -23,7 +23,7 @@ char	*get_next_line(int filedescriptor)
 	if (!characters_read_from_file)
 		return (NULL);
 	characters_before_newline = extract_characters_before_newline(characters_read_from_file);
-	characters_read_from_file = ft_getrest(characters_read_from_file);
+	characters_read_from_file = get_remaining_characters_after_newline(characters_read_from_file);
 	return (characters_before_newline);
 }
 
@@ -75,29 +75,28 @@ char	*extract_characters_before_newline(char *characters_read)
 	return (characters_before_newline);
 }
 
-char	*ft_getrest(char *full_str)
+char	*get_remaining_characters_after_newline(char *remaining_characters)
 {
-	int		i;
-	int		j;
-	char	*restof;
+	int	i;
+	int	j;
+	char	*characters_to_store;
 
 	i = 0;
-	while (full_str[i] && full_str[i] != '\n')
+	while (remaining_characters[i] && remaining_characters[i] != '\n')
 		i++;
-	if (!full_str[i])
+	if (!remaining_characters[i])
 	{
-		free(full_str);
+		free(remaining_characters);
 		return (NULL);
 	}
-	restof = (char *)malloc(sizeof(char) * (ft_strlen(full_str) - i + 1));
-	if (!restof)
-		return (NULL);
+
+	characters_to_store = ft_strnew(ft_strlen(remaining_characters) - i + 1);
+
 	i++;
 	j = 0;
-	while (full_str[i])
-		restof[j++] = full_str[i++];
-	restof[j] = '\0';
-	//These last two command lines looks like wrong. So, I might need to update these two lines in repo. I will review it in 02.06.2022
-	free(full_str);
-	return (restof);
+	while (remaining_characters[i])
+		characters_to_store[j++] = remaining_characters[i++];
+	characters_to_store[j] = '\0';
+	free(remaining_characters);
+	return (characters_to_store);
 }

@@ -28,7 +28,7 @@ char	*ft_strchr(char *s, int c);
 size_t	ft_strlen(char *s);
 char	*read_from_passed_file_till_newline(int filedescriptor, char *characters_read);
 char	*extract_characters_before_newline(char *characters_read);
-char	*ft_getrest(char *fullStr);
+char	*get_remaining_characters_after_newline(char *remaining_characters);
 char	*ft_strnew(size_t size);
 
 #endif
