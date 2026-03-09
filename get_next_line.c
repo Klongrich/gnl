@@ -30,30 +30,26 @@ char	*get_next_line(int filedescriptor)
 /**
  * read the first line of a file descriptor
  */
-char	*read_from_passed_file(int fd, char *str)
+char	*read_from_passed_file(int filedescriptor, char *characters_read)
 {
-	char	*tmp;
-	int		bytes;
+	char	*temporary_characters_holder;
+	int	number_of_characters_read;
 
-	tmp = ft_strnew(BUFFER_SIZE + 1);
-	
-	//tmp = malloc((BUFFER_SIZE + 1) * sizeof(char));
-	//if (!tmp)
-	//	return (NULL);
-	bytes = 1;
-	while (!ft_strchr(str, '\n') && (bytes != 0))
+	temporary_characters_holder = ft_strnew(BUFFER_SIZE + 1);
+	number_of_characters_read = 1;
+	while (!ft_strchr(characters_read, '\n') && (number_of_characters_read != 0))
 	{
-		bytes = read(fd, tmp, BUFFER_SIZE);
-		if (bytes == -1)
+		number_of_characters_read = read(filedescriptor, temporary_characters_holder, BUFFER_SIZE);
+		if (number_of_characters_read == -1)
 		{
-			free(tmp);
+			free(temporary_characters_holder);
 			return (NULL);
 		}
-		tmp[bytes] = '\0';
-		str = ft_strjoin(str, tmp);
+		temporary_characters_holder[number_of_characters_read] = '\0';
+		characters_read = ft_strjoin(characters_read, temporary_characters_holder);
 	}
-	free(tmp);
-	return (str);
+	free(temporary_characters_holder);
+	return (characters_read);
 }
 
 /**
