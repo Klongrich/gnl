@@ -26,6 +26,22 @@ size_t	ft_strlen(char *s)
 	return (i);
 }
 
+char 	*ft_strnew(size_t size){
+	
+	int i;
+	char *new_str;
+
+	i = 0;
+	new_str = (char *)malloc(sizeof(char) * size + 1);
+	if (!new_str)
+		return (0);
+	while(new_str[i]) {
+		new_str[i] = '\0';
+		i++;
+	}
+	return (new_str);
+}
+
 char	*ft_strchr(char *s, int c)
 {
 	int	i;

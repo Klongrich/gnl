@@ -29,5 +29,6 @@ size_t	ft_strlen(char *s);
 char	*read_from_passed_file(int fd, char *str);
 char	*ft_getline(char *fullStr);
 char	*ft_getrest(char *fullStr);
+char	*ft_strnew(size_t size);
 
 #endif

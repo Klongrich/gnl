@@ -35,9 +35,11 @@ char	*read_from_passed_file(int fd, char *str)
 	char	*tmp;
 	int		bytes;
 
-	tmp = malloc((BUFFER_SIZE + 1) * sizeof(char));
-	if (!tmp)
-		return (NULL);
+	tmp = ft_strnew(BUFFER_SIZE + 1);
+	
+	//tmp = malloc((BUFFER_SIZE + 1) * sizeof(char));
+	//if (!tmp)
+	//	return (NULL);
 	bytes = 1;
 	while (!ft_strchr(str, '\n') && (bytes != 0))
 	{
