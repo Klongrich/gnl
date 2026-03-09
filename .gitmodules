@@ -1,0 +1,3 @@
+[submodule "gnl-station-testter"]
+	path = gnl-station-testter
+	url = https://github.com/kodpe/gnl-station-tester.git
