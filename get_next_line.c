@@ -15,22 +15,19 @@
 char	*get_next_line(int filedescriptor)
 {
 	static char	*all_file_characters;
-	char		*line_from_parsing_at_newline;
+	char		*characters_before_newline;
 
 	if (filedescriptor < 0 || BUFFER_SIZE <= 0)
 		return (0);
-	all_file_characters = read_from_passed_file(filedescriptor, all_file_characters);
+	all_file_characters = read_from_passed_file_till_newline(filedescriptor, all_file_characters);
 	if (!all_file_characters)
 		return (NULL);
-	line_from_parsing_at_newline = ft_getline(all_file_characters);
+	characters_before_newline = extract_characters_before_newline(all_file_characters);
 	all_file_characters = ft_getrest(all_file_characters);
-	return (line_from_parsing_at_newline);
+	return (characters_before_newline);
 }
 
-/**
- * read the first line of a file descriptor
- */
-char	*read_from_passed_file(int filedescriptor, char *characters_read)
+char	*read_from_passed_file_till_newline(int filedescriptor, char *characters_read)
 {
 	char	*temporary_characters_holder;
 	int	number_of_characters_read;
@@ -52,40 +49,32 @@ char	*read_from_passed_file(int filedescriptor, char *characters_read)
 	return (characters_read);
 }
 
-/**
- * from the read string, take the first line and returns it
- */
-char	*ft_getline(char *full_str)
+char	*extract_characters_before_newline(char *characters_read)
 {
 	int		i;
-	char	*line;
+	char	*characters_before_newline;
 
 	i = 0;
-	if (!full_str[i])
+	if (!characters_read[i])
 		return (NULL);
-	while (full_str[i] && full_str[i] != '\n')
+	while (characters_read[i] && characters_read[i] != '\n')
 		i++;
-	line = (char *)malloc(sizeof(char) * (i + 2));
-	if (!line)
-		return (NULL);
+	characters_before_newline = ft_strnew(i + 2);
 	i = 0;
-	while (full_str[i] && full_str[i] != '\n')
+	while (characters_read[i] && characters_read[i] != '\n')
 	{
-		line[i] = full_str[i];
+		characters_before_newline[i] = characters_read[i];
 		i++;
 	}
-	if (full_str[i] == '\n')
+	if (characters_read[i] == '\n')
 	{
-		line[i] = full_str[i];
+		characters_before_newline[i] = characters_read[i];
 		i++;
 	}
-	line[i] = '\0';
-	return (line);
+	characters_before_newline[i] = '\0';
+	return (characters_before_newline);
 }
 
-/**
- * from the read string, take the first line and remove it. returns the rest
- */
 char	*ft_getrest(char *full_str)
 {
 	int		i;

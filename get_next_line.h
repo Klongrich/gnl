@@ -26,8 +26,8 @@ char	*get_next_line(int fd);
 char	*ft_strjoin(char *s1, char *s2);
 char	*ft_strchr(char *s, int c);
 size_t	ft_strlen(char *s);
-char	*read_from_passed_file(int fd, char *str);
-char	*ft_getline(char *fullStr);
+char	*read_from_passed_file_till_newline(int filedescriptor, char *characters_read);
+char	*extract_characters_before_newline(char *characters_read);
 char	*ft_getrest(char *fullStr);
 char	*ft_strnew(size_t size);
 
