@@ -14,16 +14,16 @@
 
 char	*get_next_line(int filedescriptor)
 {
-	static char	*all_file_characters;
+	static char	*characters_read_from_file;
 	char		*characters_before_newline;
 
 	if (filedescriptor < 0 || BUFFER_SIZE <= 0)
 		return (0);
-	all_file_characters = read_from_passed_file_till_newline(filedescriptor, all_file_characters);
-	if (!all_file_characters)
+	characters_read_from_file = read_from_passed_file_till_newline(filedescriptor, characters_read_from_file);
+	if (!characters_read_from_file)
 		return (NULL);
-	characters_before_newline = extract_characters_before_newline(all_file_characters);
-	all_file_characters = ft_getrest(all_file_characters);
+	characters_before_newline = extract_characters_before_newline(characters_read_from_file);
+	characters_read_from_file = ft_getrest(characters_read_from_file);
 	return (characters_before_newline);
 }
 
